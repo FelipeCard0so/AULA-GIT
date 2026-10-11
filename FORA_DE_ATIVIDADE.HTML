@@ -18,7 +18,7 @@
     <style>
 
         /* =====================================================
-           RESET
+            RESET
         ===================================================== */
 
         * {
@@ -37,7 +37,7 @@
 
 
         /* =====================================================
-           FUNDO PRINCIPAL
+            FUNDO PRINCIPAL
         ===================================================== */
 
         body {
@@ -98,7 +98,7 @@
 
 
         /* =====================================================
-           CAMADA DE LUZ
+            CAMADA DE LUZ
         ===================================================== */
 
         body::before {
@@ -135,8 +135,8 @@
 
 
         /* =====================================================
-           TEXTURA ULTRA SUTIL
-           ===================================================== */
+            TEXTURA ULTRA SUTIL
+            ===================================================== */
 
         body::after {
 
@@ -159,7 +159,7 @@
 
 
         /* =====================================================
-           ANIMAÇÃO DO FUNDO
+            ANIMAÇÃO DO FUNDO
         ===================================================== */
 
         @keyframes atmosfera {
@@ -212,7 +212,7 @@
 
 
         /* =====================================================
-           MOVIMENTO DA LUZ
+            MOVIMENTO DA LUZ
         ===================================================== */
 
         @keyframes movimentoLuz {
@@ -241,7 +241,7 @@
 
 
         /* =====================================================
-           CONTEÚDO
+            CONTEÚDO
         ===================================================== */
 
         .container {
@@ -262,7 +262,7 @@
 
 
         /* =====================================================
-           ENTRADA
+            ENTRADA
         ===================================================== */
 
         @keyframes entrada {
@@ -286,7 +286,7 @@
 
 
         /* =====================================================
-           STATUS
+            STATUS
         ===================================================== */
 
         .status {
@@ -314,7 +314,7 @@
 
 
         /* =====================================================
-           NOME
+            NOME
         ===================================================== */
 
         .nome {
@@ -341,7 +341,7 @@
 
 
         /* =====================================================
-           LINHA
+            LINHA
         ===================================================== */
 
         .linha {
@@ -363,7 +363,7 @@
 
 
         /* =====================================================
-           DATA / HORA
+            DATA / HORA
         ===================================================== */
 
         .datetime {
@@ -388,7 +388,20 @@
 
 
         /* =====================================================
-           MOBILE
+            AFASTAMENTO (H2)
+        ===================================================== */
+
+        .afastamento {
+            margin-top: 20px;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.80);
+        }
+
+
+        /* =====================================================
+            MOBILE
         ===================================================== */
 
         @media (max-width: 600px) {
@@ -424,7 +437,7 @@
 
 
         /* =====================================================
-           REDUÇÃO DE MOVIMENTO
+            REDUÇÃO DE MOVIMENTO
         ===================================================== */
 
         @media (prefers-reduced-motion: reduce) {
@@ -471,6 +484,10 @@
             Carregando...
         </div>
 
+        <h2 class="afastamento" id="afastamento">
+            Estou afastado há: --- dias
+        </h2>
+
     </main>
 
 
@@ -508,6 +525,21 @@
                 .getElementById("datetime")
                 .textContent =
                 `${data} • ${hora}`;
+
+
+            // Cálculo dos dias de afastamento a partir de 05/10/2026
+            const dataInicial = new Date(2026, 9, 5); // Mês 9 = Outubro (0 a 11 em JS)
+            
+            // Zerando as horas para comparar apenas os dias inteiros com precisão
+            const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+            const inicio = new Date(dataInicial.getFullYear(), dataInicial.getMonth(), dataInicial.getDate());
+
+            const diferencaTempo = hoje - inicio;
+            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+
+            document
+                .getElementById("afastamento")
+                .textContent = `Estou afastado há: ${diferencaDias} dias`;
         }
 
 
