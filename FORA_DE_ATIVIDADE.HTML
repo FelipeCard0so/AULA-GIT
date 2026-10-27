@@ -1,162 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DriveTest - Felipe Cardoso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080808">
+    <meta name="description" content="Status profissional de Felipe Cardoso.">
+    <title>DriveTest | Felipe Cardoso</title>
 
     <style>
-        /* =====================================================
-            RESET & ESTRUTURA GLOBAL
-        ===================================================== */
+        :root {
+            color-scheme: dark;
+            --background: #080808;
+            --text: #f5f5f5;
+            --muted: #aaa;
+            --line: rgba(255, 255, 255, .3);
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
         body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: var(--background);
+            color: var(--text);
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-            color: rgba(255, 255, 255, 0.94);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            background-color: #0b0f19;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* =====================================================
-            EFEITO GLITCH DE FUNDO
-        ===================================================== */
-        .glitch {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: url('bg.jpeg') no-repeat center center;
-            background-size: cover;
-            z-index: 1;
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, .78),
+                    rgba(0, 0, 0, .88)
+                ),
+                url("bg.jpeg") center / cover no-repeat,
+                var(--background);
         }
 
-        .glitch::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('bg.jpeg') no-repeat center center;
-            background-size: cover;
-            opacity: 0.4;
-            mix-blend-mode: hard-light;
-            animation: glitch2 10s linear infinite;
-        }
-
-        .glitch:hover::before {
-            animation: glitch1 1s linear infinite;
-        }
-
-        /* Camada leve de escurecimento geral do fundo para contraste */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* =====================================================
-            ANIMAÇÕES DE GLITCH (@keyframes)
-        ===================================================== */
-        @keyframes glitch1 {
-            0% {
-                background-position: 0 0;
-                filter: hue-rotate(0deg);
-            }
-            10% {
-                background-position: 5px 0;
-            }
-            20% {
-                background-position: -5px 0;
-            }
-            30% {
-                background-position: 15px 0;
-            }
-            40% {
-                background-position: -5px 0;
-            }
-            50% {
-                background-position: -25px 0;
-            }
-            60% {
-                background-position: -50px 0;
-            }
-            70% {
-                background-position: 0 -20px;
-            }
-            80% {
-                background-position: -60px -20px;
-            }
-            81% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 0 0;
-                filter: hue-rotate(360deg);
-            }
-        }
-
-        @keyframes glitch2 {
-            0% {
-                background-position: 0 0;
-                filter: hue-rotate(0deg);
-            }
-            10% {
-                background-position: 5px 0;
-            }
-            15% {
-                background-position: -5px 0;
-            }
-            20% {
-                filter: hue-rotate(360deg);
-            }
-            25% {
-                background-position: 0 0;
-                filter: hue-rotate(0deg);
-            }
-            100% {
-                background-position: 0 0;
-                filter: hue-rotate(0deg);
-            }
-        }
-
-        /* =====================================================
-            CONTEÚDO (Sem cartão/caixa) 
-        ===================================================== */
         .container {
-            position: relative;
-            z-index: 5;
+            width: min(100%, 760px);
             text-align: center;
-            padding: 20px;
-            max-width: 1000px;
-            animation: entrada 1.8s ease-out forwards;
+            animation: appear .9s ease-out both;
         }
 
-        @keyframes entrada {
+        h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 7vw, 5rem);
+            font-weight: 300;
+            line-height: 1.12;
+            letter-spacing: -.055em;
+            text-wrap: balance;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, .7);
+        }
+
+        .nome {
+            margin: 27px 0 0;
+            color: rgba(255, 255, 255, .85);
+            font-size: clamp(.78rem, 2vw, .95rem);
+            font-weight: 400;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 12px #000;
+        }
+
+        .divider {
+            width: 52px;
+            height: 1px;
+            margin: 30px auto;
+            border: 0;
+            background: var(--line);
+        }
+
+        .datetime {
+            color: var(--muted);
+            font-size: clamp(.75rem, 2vw, .9rem);
+            font-weight: 400;
+            letter-spacing: .035em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .elapsed {
+            margin: 30px 0 0;
+            color: rgba(255, 255, 255, .75);
+            font-size: clamp(.9rem, 2.5vw, 1.15rem);
+            font-weight: 300;
+            letter-spacing: .02em;
+        }
+
+        .elapsed strong {
+            color: var(--text);
+            font-size: 1.15em;
+            font-weight: 500;
+        }
+
+        @keyframes appear {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -164,152 +115,111 @@
             }
         }
 
-        /* =====================================================
-            STATUS, NOME E DATAS
-        ===================================================== */
-        .status {
-            font-size: clamp(1.5rem, 3vw, 3rem);
-            font-weight: 300;
-            letter-spacing: -0.045em;
-            line-height: 1.05;
-
-            /* Deixa o miolo do texto transparente */
-            color: transparent;
-
-            /* Cria a bordinha ao redor do texto (espessura e cor) */
-            -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.2);
-
-            /* Opcional: mantém a sombra para dar profundidade no fundo */
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .nome {
-            margin-top: 30px;
-            font-size: clamp(0.82rem, 1.3vw, 1.05rem);
-            font-weight: 400;
-            letter-spacing: 0.20em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.84);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        }
-
-        .linha {
-            width: 45px;
-            height: 1px;
-            margin: 27px auto 0;
-            background: rgba(255, 255, 255, 0.40);
-            box-shadow: 0 0 14px rgba(255, 255, 255, 0.30);
-        }
-
-        .datetime {
-            margin-top: 12px;
-            font-size: clamp(0.72rem, 1vw, 0.9rem);
-            font-weight: 800;
-            letter-spacing: 0.09em;
-            color: rgba(255, 255, 255, 0.75);
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-        }
-
-        .afastamento {
-            margin-top: 20px;
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.90);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        /* =====================================================
-            RESPONSIVIDADE MOBILE
-        ===================================================== */
         @media (max-width: 600px) {
-            .container {
-                padding: 25px;
+            body {
+                padding: 22px;
             }
-            .status {
-                letter-spacing: -0.025em;
-            }
+
             .nome {
                 margin-top: 22px;
-                letter-spacing: 0.13em;
+                letter-spacing: .2em;
             }
-            .datetime {
-                letter-spacing: 0.045em;
+
+            .divider {
+                margin: 25px auto;
+            }
+
+            .elapsed {
+                margin-top: 25px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .container {
+                animation: none;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="background" aria-hidden="true"></div>
 
-    <!-- Camada do Efeito Glitch com a imagem de fundo -->
-    <div class="glitch"></div>
-    <div class="overlay"></div>
-
-    <!-- Conteúdo Textual -->
     <main class="container">
-        <div class="status">
-            <h1> Fora de atividade!</h1>
-        </div>
+        <h1>Fora de atividade!</h1>
 
-        <div class="nome">
-            <h2> Felipe Cardoso </h2>
-        </div>
+        <p class="nome">Felipe Cardoso</p>
 
-        <div class="linha"></div>
+        <hr class="divider">
 
-        <div class="datetime" id="datetime">
-            Carregando...
-        </div>
+        <p class="datetime" id="datetime">
+            Carregando data e hora...
+        </p>
 
-        <h2 class="afastamento" id="afastamento">
-            Estou afastado há: --- dias
-        </h2>
+        <p class="elapsed" id="afastamento">
+            Tempo de afastamento: calculando...
+        </p>
     </main>
 
     <script>
-        function atualizarDataHora() {
+        const elementoData = document.getElementById("datetime");
+        const elementoAfastamento = document.getElementById("afastamento");
+
+        const dataInicial = new Date(2026, 9, 5);
+        const MILISSEGUNDOS_POR_DIA = 86_400_000;
+
+        const formatadorData = new Intl.DateTimeFormat("pt-BR", {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+
+        const formatadorHora = new Intl.DateTimeFormat("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+
+        function atualizarPagina() {
             const agora = new Date();
+            const data = formatadorData.format(agora);
 
-            const data = agora.toLocaleDateString(
-                "pt-BR",
-                {
-                    weekday: "long",
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric"
-                }
+            elementoData.textContent =
+                `${data.charAt(0).toUpperCase()}${data.slice(1)} • ${formatadorHora.format(agora)}`;
+
+            const hoje = new Date(
+                agora.getFullYear(),
+                agora.getMonth(),
+                agora.getDate()
             );
 
-            const hora = agora.toLocaleTimeString(
-                "pt-BR",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                }
+            const inicio = new Date(
+                dataInicial.getFullYear(),
+                dataInicial.getMonth(),
+                dataInicial.getDate()
             );
 
-            // Capitaliza o dia da semana
-            const dataFormatada = data.charAt(0).toUpperCase() + data.slice(1);
+            const dias = Math.round(
+                (hoje - inicio) / MILISSEGUNDOS_POR_DIA
+            );
 
-            document.getElementById("datetime").textContent = `${dataFormatada} • ${hora}`;
+            if (dias < 0) {
+                elementoAfastamento.textContent =
+                    `Afastamento previsto para ${formatadorData.format(dataInicial)}`;
+                return;
+            }
 
-            // Cálculo dos dias de afastamento a partir de 05/10/2026
-            const dataInicial = new Date(2026, 9, 5); // Mês 9 = Outubro (0 a 11 em JS)
-            
-            const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
-            const inicio = new Date(dataInicial.getFullYear(), dataInicial.getMonth(), dataInicial.getDate());
-
-            const diferencaTempo = hoje - inicio;
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-
-            document.getElementById("afastamento").textContent = `Estou afastado há: ${diferencaDias} dias`;
+            elementoAfastamento.replaceChildren(
+                document.createTextNode("Estou afastado há "),
+                Object.assign(document.createElement("strong"), {
+                    textContent: `${dias} ${dias === 1 ? "dia" : "dias"}`
+                })
+            );
         }
 
-        atualizarDataHora();
-        setInterval(atualizarDataHora, 1000);
+        atualizarPagina();
+        setInterval(atualizarPagina, 1000);
     </script>
-
 </body>
 </html>
