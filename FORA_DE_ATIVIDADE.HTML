@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -47,30 +48,57 @@
                 var(--background);
         }
 
-	.container {
-    		position: relative;
-    		width: min(100%, 600px);
-    		margin-right: auto;
-   		margin-left: 5%;
-    		text-align: center;
-    		animation: appear .9s ease-out both;
-	}
+        .container {
+            position: relative;
+            width: max-content;
+max-width: 100%;
+            margin-right: auto;
+            margin-left: 5%;
+            text-align: center;
+            animation: appear .9s ease-out both;
+        }
 
-		@media (max-width: 600px) {
-    	.container {
-        	width: 100%;
-        	margin: 0;
-    		}
-	}
+.titulo-efeito {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    gap: 0 .015em;
+    margin: 0;
+    font-size: clamp(1.5rem, 3.6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .015em;
+    text-shadow: none;
+}
 
-        h1 {
-            margin: 0;
-            font-size: clamp(2.2rem, 7vw, 5rem);
-            font-weight: 300;
-            line-height: 1.12;
-            letter-spacing: -.055em;
-            text-wrap: balance;
-            text-shadow: 0 4px 30px rgba(0, 0, 0, .7);
+.titulo-efeito .espaco {
+    width: .25em;
+    flex-shrink: 0;
+}
+
+.titulo-efeito .letra {
+    flex-shrink: 0;
+}
+        .titulo-efeito .letra {
+            display: inline-block;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, .85);
+            transition:
+                color .3s ease,
+                transform .3s ease,
+                -webkit-text-stroke-color .3s ease;
+        }
+
+        .titulo-efeito .letra:hover {
+            color: #fff;
+            -webkit-text-stroke-color: transparent;
+            transform: scale(1.2);
+        }
+
+        .titulo-efeito .espaco {
+            width: .25em;
         }
 
         .nome {
@@ -129,6 +157,15 @@
                 padding: 22px;
             }
 
+            .container {
+                width: 100%;
+                margin: 0;
+            }
+
+            .titulo-efeito {
+                font-size: clamp(1.65rem, 7vw, 2.6rem);
+            }
+
             .nome {
                 margin-top: 22px;
                 letter-spacing: .2em;
@@ -147,6 +184,10 @@
             .container {
                 animation: none;
             }
+
+            .titulo-efeito .letra {
+                transition: none;
+            }
         }
     </style>
 </head>
@@ -155,7 +196,29 @@
     <div class="background" aria-hidden="true"></div>
 
     <main class="container">
-        <h1>Fora  de  atividade!</h1>
+        <h1 class="titulo-efeito" aria-label="Fora de atividade">
+            <span class="letra" aria-hidden="true">F</span>
+            <span class="letra" aria-hidden="true">O</span>
+            <span class="letra" aria-hidden="true">R</span>
+            <span class="letra" aria-hidden="true">A</span>
+
+            <span class="espaco" aria-hidden="true"></span>
+
+            <span class="letra" aria-hidden="true">D</span>
+            <span class="letra" aria-hidden="true">E</span>
+
+            <span class="espaco" aria-hidden="true"></span>
+
+            <span class="letra" aria-hidden="true">A</span>
+            <span class="letra" aria-hidden="true">T</span>
+            <span class="letra" aria-hidden="true">I</span>
+            <span class="letra" aria-hidden="true">V</span>
+            <span class="letra" aria-hidden="true">I</span>
+            <span class="letra" aria-hidden="true">D</span>
+            <span class="letra" aria-hidden="true">A</span>
+            <span class="letra" aria-hidden="true">D</span>
+            <span class="letra" aria-hidden="true">E</span>
+        </h1>
 
         <p class="nome">Felipe Cardoso</p>
 
