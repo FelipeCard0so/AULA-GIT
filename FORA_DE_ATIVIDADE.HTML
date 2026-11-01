@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,6 +8,9 @@
     <title>DriveTest | Felipe Cardoso</title>
 
     <style>
+        /* =================================================================v
+           1. VARIÁVEIS GLOBAIS E RESET DE ESTILOS
+           ================================================================ */
         :root {
             color-scheme: dark;
             --background: #080808;
@@ -21,6 +23,9 @@
             box-sizing: border-box;
         }
 
+        /* =================================================================
+           2. ESTILOS DO CORPO DA PÁGINA (LAYOUT PRINCIPAL)
+           ================================================================ */
         body {
             min-height: 100vh;
             min-height: 100dvh;
@@ -35,6 +40,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* =================================================================
+           3. CAMADA DE FUNDO (BACKGROUND COM GRADIENTE E IMAGEM)
+           ================================================================ */
         .background {
             position: fixed;
             inset: 0;
@@ -48,39 +56,37 @@
                 var(--background);
         }
 
+        /* =================================================================
+           4. CONTAINER DO CONTEÚDO CENTRAL
+           ================================================================ */
         .container {
             position: relative;
             width: max-content;
-max-width: 100%;
+            max-width: 100%;
             margin-right: auto;
             margin-left: 5%;
             text-align: center;
             animation: appear .9s ease-out both;
         }
 
-.titulo-efeito {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    white-space: nowrap;
-    gap: 0 .015em;
-    margin: 0;
-    font-size: clamp(1.5rem, 3.6vw, 4.5rem);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: .015em;
-    text-shadow: none;
-}
+        /* =================================================================
+           5. EFEITO TIPOGRÁFICO NO TÍTULO ("FORA DE ATIVIDADE")
+           ================================================================ */
+        .titulo-efeito {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            white-space: nowrap;
+            gap: 0 .015em;
+            margin: 0;
+            font-size: clamp(1.5rem, 3.6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: .015em;
+            text-shadow: none;
+        }
 
-.titulo-efeito .espaco {
-    width: .25em;
-    flex-shrink: 0;
-}
-
-.titulo-efeito .letra {
-    flex-shrink: 0;
-}
         .titulo-efeito .letra {
             display: inline-block;
             color: transparent;
@@ -91,6 +97,7 @@ max-width: 100%;
                 -webkit-text-stroke-color .3s ease;
         }
 
+        /* Animação interativa individual por letra ao passar o mouse */
         .titulo-efeito .letra:hover {
             color: #fff;
             -webkit-text-stroke-color: transparent;
@@ -99,8 +106,12 @@ max-width: 100%;
 
         .titulo-efeito .espaco {
             width: .25em;
+            flex-shrink: 0;
         }
 
+        /* =================================================================
+           6. ELEMENTOS TEXTUAIS SECUNDÁRIOS (NOME, DIVISOR, DATETIME)
+           ================================================================ */
         .nome {
             margin: 27px 0 0;
             color: rgba(255, 255, 255, .85);
@@ -141,6 +152,9 @@ max-width: 100%;
             font-weight: 500;
         }
 
+        /* =================================================================
+           7. ANIMAÇÕES E RESPONSIVIDADE (MEDIA QUERIES)
+           ================================================================ */
         @keyframes appear {
             from {
                 opacity: 0;
@@ -180,6 +194,7 @@ max-width: 100%;
             }
         }
 
+        /* Respeita configurações de acessibilidade para reduzir movimento */
         @media (prefers-reduced-motion: reduce) {
             .container {
                 animation: none;
@@ -193,9 +208,12 @@ max-width: 100%;
 </head>
 
 <body>
+    <!-- Camada de fundo decorativa -->
     <div class="background" aria-hidden="true"></div>
 
+    <!-- Conteúdo principal -->
     <main class="container">
+        <!-- Título principal com letras separadas para efeito individual -->
         <h1 class="titulo-efeito" aria-label="Fora de atividade">
             <span class="letra" aria-hidden="true">F</span>
             <span class="letra" aria-hidden="true">O</span>
@@ -224,22 +242,31 @@ max-width: 100%;
 
         <hr class="divider">
 
+        <!-- Relógio e data atualizados dinamicamente via JS -->
         <p class="datetime" id="datetime">
             Carregando data e hora...
         </p>
 
+        <!-- Contador de dias de afastamento -->
         <p class="elapsed" id="afastamento">
             Tempo de afastamento: calculando...
         </p>
     </main>
 
     <script>
+        /* =================================================================
+           8. LÓGICA JAVASCRIPT (CRONÔMETRO E RELÓGIO EM TEMPO REAL)
+           ================================================================ */
+
+        // Seleção de elementos do DOM
         const elementoData = document.getElementById("datetime");
         const elementoAfastamento = document.getElementById("afastamento");
 
-        const dataInicial = new Date(2026, 9, 5);
+        // CONFIGURAÇÃO DA DATA INICIAL: Ano, Mês (0-11, onde 9 = Outubro), Dia
+        const dataInicial = new Date(2026, 9, 5); 
         const MILISSEGUNDOS_POR_DIA = 86_400_000;
 
+        // Formatadores nativos para o padrão brasileiro (pt-BR)
         const formatadorData = new Intl.DateTimeFormat("pt-BR", {
             weekday: "long",
             day: "2-digit",
@@ -253,35 +280,29 @@ max-width: 100%;
             second: "2-digit"
         });
 
+        // Função principal executada a cada segundo para atualizar a tela
         function atualizarPagina() {
             const agora = new Date();
-            const data = formatadorData.format(agora);
+            const dataFormatada = formatadorData.format(agora);
 
-            elementoData.textContent =
-                `${data.charAt(0).toUpperCase()}${data.slice(1)} • ${formatadorHora.format(agora)}`;
+            // Atualiza o relógio e data formatados
+            elementoData.textContent = 
+                `${dataFormatada.charAt(0).toUpperCase()}${dataFormatada.slice(1)} • ${formatadorHora.format(agora)}`;
 
-            const hoje = new Date(
-                agora.getFullYear(),
-                agora.getMonth(),
-                agora.getDate()
-            );
+            // Normaliza as datas para zerar as horas e calcular a diferença exata em dias inteiros
+            const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+            const inicio = new Date(dataInicial.getFullYear(), dataInicial.getMonth(), dataInicial.getDate());
 
-            const inicio = new Date(
-                dataInicial.getFullYear(),
-                dataInicial.getMonth(),
-                dataInicial.getDate()
-            );
+            const dias = Math.round((hoje - inicio) / MILISSEGUNDOS_POR_DIA);
 
-            const dias = Math.round(
-                (hoje - inicio) / MILISSEGUNDOS_POR_DIA
-            );
-
+            // Validação caso a data atual seja anterior ao início do afastamento
             if (dias < 0) {
-                elementoAfastamento.textContent =
+                elementoAfastamento.textContent = 
                     `Afastamento previsto para ${formatadorData.format(dataInicial)}`;
                 return;
             }
 
+            // Atualiza de forma segura o texto do tempo de afastamento
             elementoAfastamento.replaceChildren(
                 document.createTextNode("Estou afastado há "),
                 Object.assign(document.createElement("strong"), {
@@ -290,6 +311,7 @@ max-width: 100%;
             );
         }
 
+        // Executa imediatamente ao carregar e define o intervalo de repetição (1 segundo)
         atualizarPagina();
         setInterval(atualizarPagina, 1000);
     </script>
